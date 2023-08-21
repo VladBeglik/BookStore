@@ -8,13 +8,29 @@
 
 
     <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="12.0.1" />
       <PackageReference Include="EntityFrameworkCore.SqlServer.NodaTime" Version="6.0.9" />
+      <PackageReference Include="FluentValidation" Version="11.7.1" />
     </ItemGroup>
 
 
     <ItemGroup>
       <ProjectReference Include="..\BookStore.Domain\BookStore.Domain.csproj" />
+
+
+
+
+
+
+
+
     </ItemGroup>
+
+
+
+
+
+
 
 
 

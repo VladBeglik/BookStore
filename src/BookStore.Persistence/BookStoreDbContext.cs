@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using BookStore.App.Infrastructure;
+using BookStore.App.Infrastructure.Interfaces;
 using BookStore.Domain;
+using BookStore.Persistence.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;

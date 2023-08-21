@@ -2,7 +2,7 @@ using BookStore.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace BookStore.App.Infrastructure;
+namespace BookStore.Persistence.Infrastructure;
 
 public interface IBookStoreDbContext
 { 
