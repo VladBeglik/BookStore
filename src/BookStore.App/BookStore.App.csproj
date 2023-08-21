@@ -6,4 +6,16 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+
+    <ItemGroup>
+      <PackageReference Include="EntityFrameworkCore.SqlServer.NodaTime" Version="6.0.9" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <ProjectReference Include="..\BookStore.Domain\BookStore.Domain.csproj" />
+    </ItemGroup>
+
+
+
 </Project>
