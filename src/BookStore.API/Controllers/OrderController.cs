@@ -1,6 +1,8 @@
 using BookStore.App.Infrastructure.Interfaces;
 using BookStore.App.Infrastructure.Mapping.Models;
+using BookStore.App.Infrastructure.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.API.Controllers;
 
@@ -44,5 +46,15 @@ public class OrderController : BaseController
     {
         await _orderService.DeleteOrder(id);
         return NoContent();
+    }
+    
+        
+    [HttpPost]
+    [Route("GetQuery")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<List<OrderVm>> GetBooks(GetOrderQuery query)
+    {
+        var res= _orderService.GetOrdersQuery(query);
+        return await res.ToListAsync();
     }
 }

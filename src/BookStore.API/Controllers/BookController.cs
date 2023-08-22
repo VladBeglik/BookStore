@@ -1,6 +1,8 @@
 using BookStore.App.Infrastructure.Interfaces;
 using BookStore.App.Infrastructure.Mapping.Models;
+using BookStore.App.Infrastructure.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.API.Controllers;
 
@@ -45,4 +47,15 @@ public class BookController : BaseController
         await _bookService.DeleteBook(id);
         return NoContent();
     }
+
+    
+    [HttpPost]
+    [Route("GetQuery")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<List<BookVm>> GetBooks(GetBooksQuery query)
+    {
+        var res= _bookService.GetBooksQuery(query);
+        return await res.ToListAsync();
+    }
+    
 }

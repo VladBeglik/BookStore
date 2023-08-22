@@ -13,7 +13,7 @@ namespace BookStore.API.Infrastructure
         {
             var migrationsAssembly = typeof(BookStoreDbContext).Assembly;
 
-            var connectionString = configuration.GetConnectionString("Npgsql");
+            var connectionString = configuration.GetConnectionString("SqlServer");
 
             services.AddDbContext<BookStoreDbContext>(options =>
             {
