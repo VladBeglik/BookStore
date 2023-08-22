@@ -1,9 +1,10 @@
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using BookStore.App.Books.Models;
+using BookStore.App.Books.Queries;
 using BookStore.App.Infrastructure;
 using BookStore.App.Infrastructure.Interfaces;
 using BookStore.App.Infrastructure.Mapping.Models;
-using BookStore.App.Infrastructure.Models;
 using BookStore.Domain;
 using BookStore.Persistence.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -30,36 +31,22 @@ public class BookRepository : IBookRepository
             books = books.Where(_ => _.Name == query.Name);
         }
 
-        if (query.LocalDate.HasValue)
+        if (query.Date.HasValue)
         {
-            books = books.Where(_ => _.ReleaseDate == query.LocalDate);
+            books = books.Where(_ => _.ReleaseDate == query.Date);
         }
 
         return books.ProjectTo<BookVm>(_mapper.ConfigurationProvider);
     }
 
+    public async Task<IList<Book>> GetBooksByIds(int[] ids)
+    {
+        var books = await _ctx.Books.Where(_ => ids.Contains(_.Id)).ToListAsync();
+        return books;
+    }
+
     public async Task<Book> GetById(int id)
     {
         return await _ctx.Books.FirstOrDefaultAsync(_ => _.Id == id);
-    }
-
-    public async Task<int> Add(Book book)
-    {
-        _ctx.Books.Add(book);
-        await _ctx.SaveChangesAsync();
-        return book.Id;
-    }
-
-    public async Task Update(Book book)
-    {
-        _ctx.Books.Update(book);
-        await _ctx.SaveChangesAsync();
-    }
-
-    public async Task Delete(int id)
-    {
-        var book = await _ctx.Books.FirstOrDefaultAsync(_ => _.Id == id);
-        if (book != null) _ctx.Books.Remove(book);
-        await _ctx.SaveChangesAsync();
     }
 }

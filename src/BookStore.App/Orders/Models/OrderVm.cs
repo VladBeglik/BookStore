@@ -1,4 +1,5 @@
 using AutoMapper;
+using BookStore.App.Books.Models;
 using BookStore.App.Infrastructure.Mapping.Interfaces;
 using BookStore.Domain;
 using NodaTime;

@@ -3,7 +3,7 @@ using BookStore.App.Infrastructure.Mapping.Interfaces;
 using BookStore.Domain;
 using NodaTime;
 
-namespace BookStore.App.Infrastructure.Mapping.Models;
+namespace BookStore.App.Books.Models;
 
 public class BookVm : IHaveCustomMapping
 {

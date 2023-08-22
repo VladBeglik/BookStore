@@ -1,8 +1,8 @@
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System.Net;
 
-namespace LiveSlotsSpb.API.Infrastructure.Filters
+namespace BookStore.API.Infrastructure.Filters
 {
     public class ModelBindingErrorFilter : IActionFilter
     {
@@ -22,7 +22,7 @@ namespace LiveSlotsSpb.API.Infrastructure.Filters
                 context.ModelState.Keys.Select(e => new
                 {
                     key = e.ToString(),
-                    errors = context.ModelState[e].Errors.Select(er => er.ErrorMessage)
+                    errors = context.ModelState[e]?.Errors.Select(er => er.ErrorMessage)
                 })
             );
 

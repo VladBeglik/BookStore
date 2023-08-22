@@ -1,60 +1,52 @@
-using BookStore.App.Infrastructure.Interfaces;
 using BookStore.App.Infrastructure.Mapping.Models;
-using BookStore.App.Infrastructure.Models;
+using BookStore.App.Orders.Commands;
+using BookStore.App.Orders.Queries;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.API.Controllers;
 
-public class OrderController : BaseController
+public class OrderController : MediatrController
 {
-    private readonly IOrderService _orderService;
-
-    public OrderController(IOrderService orderService)
-    {
-        _orderService = orderService;
-    }
-    
-    [HttpPost]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> AddOrder([FromBody] OrderVm orderVm)
-    {
-        var id = await _orderService.AddOrder(orderVm);
-        return Ok(id);
-    }
-
-    [HttpPut("{id}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> UpdateOrder(int id, [FromBody] OrderVm orderVm)
-    {
-        orderVm.Id = id;
-        await _orderService.UpdateOrder(orderVm);
-        return NoContent();
-    }
-
+   
+    /// <summary>
+    /// Получить заказ по идентификатору
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetOrderById(int id)
     {
-        var order = await _orderService.GetById(id);
+        var order = await Mediator.Send(new GetOrderByIdQuery { Id = id });
         return Ok(order);
     }
 
-    [HttpDelete("{id}")]
+    /// <summary>
+    /// получить список заказов
+    /// </summary>
+    /// <param name="query"></param>
+    /// <returns></returns>
+    [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> DeleteOrder(int id)
+    public async Task<List<OrderVm>> GetOrders([FromBody] GetOrdersQuery query)
     {
-        await _orderService.DeleteOrder(id);
-        return NoContent();
+        var res = await Mediator.Send(query);
+        return res;
     }
     
-        
+    /// <summary>
+    /// Сохранить заказ
+    /// </summary>
+    /// <param name="query"></param>
+    /// <returns></returns>
     [HttpPost]
-    [Route("GetQuery")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<List<OrderVm>> GetBooks(GetOrderQuery query)
+    public async Task<int> SaveOrder(SaveOrderCommand r)
     {
-        var res= _orderService.GetOrdersQuery(query);
-        return await res.ToListAsync();
+        var res = await Mediator.Send(r);
+        return res;
     }
+    
+    
+    
 }
