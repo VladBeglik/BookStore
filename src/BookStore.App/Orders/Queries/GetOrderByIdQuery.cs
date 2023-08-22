@@ -29,7 +29,7 @@ public class GetOrderByIdQueryHandler : IRequestHandler<GetOrderByIdQuery, Order
 
         if (order == default)
         {
-            throw new CustomException();
+            throw new CustomException(ExMsg.Order.NotFound());
         }
 
         return _mapper.Map<OrderVm>(order);

@@ -30,7 +30,7 @@ public class GetOrdersQueryHandler : IRequestHandler<GetOrdersQuery, List<OrderV
 
         if (res == default)
         {
-            throw new CustomException();
+            throw new CustomException(ExMsg.Order.NotFound());
         }
         
         return await res.ToListAsync(cancellationToken: cancellationToken);

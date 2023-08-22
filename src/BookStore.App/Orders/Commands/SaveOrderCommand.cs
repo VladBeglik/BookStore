@@ -41,7 +41,7 @@ public class SaveOrderCommandHandler : IRequestHandler<SaveOrderCommand, int>
 
         if (books == default)
         {
-            throw new CustomException();
+            throw new CustomException(ExMsg.Book.NotFound());
         }
 
         var order = new Order
