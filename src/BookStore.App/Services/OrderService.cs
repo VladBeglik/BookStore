@@ -1,6 +1,7 @@
 using AutoMapper;
 using BookStore.App.Infrastructure.Interfaces;
 using BookStore.App.Infrastructure.Mapping.Models;
+using BookStore.App.Infrastructure.Models;
 using BookStore.Domain;
 
 namespace BookStore.App.Services;
@@ -37,6 +38,11 @@ public class OrderService : IOrderService
         var book = _mapper.Map<Order>(orderVm);
         await _repository.Update(book);
         
+    }
+
+    public IQueryable<OrderVm> GetOrdersQuery(GetOrderQuery query)
+    {
+        return _repository.GetOrdersQuery(query);
     }
 
     public async Task<IQueryable<OrderVm>> GetOrdersQuery()

@@ -9,11 +9,10 @@ public class BookVm : IHaveCustomMapping
 {
     public int Id { get; set; }
     public string Name { get; set; } = null!;
-    public string[] Authors { get; set; } = null!;
+    public string Author { get; set; } = null!;
     public LocalDate ReleaseDate { get; set; }
     public decimal Price { get; set; }
-    
-    public ICollection<Order>? Orders { get; set; }
+
     
     public void CreateMappings(Profile configuration)
     {

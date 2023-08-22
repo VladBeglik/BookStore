@@ -1,5 +1,9 @@
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using BookStore.App.Infrastructure;
 using BookStore.App.Infrastructure.Interfaces;
+using BookStore.App.Infrastructure.Mapping.Models;
+using BookStore.App.Infrastructure.Models;
 using BookStore.Domain;
 using BookStore.Persistence.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -9,15 +13,29 @@ namespace BookStore.Persistence;
 public class BookRepository : IBookRepository
 {
     private readonly IBookStoreDbContext _ctx;
+    private readonly IMapper _mapper;
 
-    public BookRepository(IBookStoreDbContext ctx)
+    public BookRepository(IBookStoreDbContext ctx, IMapper mapper)
     {
         _ctx = ctx;
+        _mapper = mapper;
     }
 
-    public Task<IQueryable<Book>> GetBooksQuery()
+    public IQueryable<BookVm> GetBooksQuery(GetBooksQuery query)
     {
-        throw new NotImplementedException();
+        var books =  _ctx.Books.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(query.Name))
+        {
+            books = books.Where(_ => _.Name == query.Name);
+        }
+
+        if (query.LocalDate.HasValue)
+        {
+            books = books.Where(_ => _.ReleaseDate == query.LocalDate);
+        }
+
+        return books.ProjectTo<BookVm>(_mapper.ConfigurationProvider);
     }
 
     public async Task<Book> GetById(int id)

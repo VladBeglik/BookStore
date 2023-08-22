@@ -9,7 +9,7 @@ public class OrderVm : IHaveCustomMapping
 {    
     public int Id { get; set; }
     public LocalDateTime OrderDataTime { get; set; }
-    public ICollection<Book>? Books { get; set; }
+    public ICollection<BookVm>? Books { get; set; }
     public void CreateMappings(Profile configuration)
     {
         configuration

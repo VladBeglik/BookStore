@@ -2,6 +2,7 @@ using AutoMapper;
 using BookStore.App.Infrastructure.Exceptions;
 using BookStore.App.Infrastructure.Interfaces;
 using BookStore.App.Infrastructure.Mapping.Models;
+using BookStore.App.Infrastructure.Models;
 using BookStore.Domain;
 using FluentValidation;
 
@@ -39,9 +40,9 @@ public class BookService : IBookService
         await _repository.Update(book);
     }
 
-    public async Task<IQueryable<BookVm>> GetBooksQuery()
+    public IQueryable<BookVm> GetBooksQuery(GetBooksQuery query)
     {
-        throw new NotImplementedException();
+        return _repository.GetBooksQuery(query);
     }
 
     public async Task<BookVm> GetById(int id)

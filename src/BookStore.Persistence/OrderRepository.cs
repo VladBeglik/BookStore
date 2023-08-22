@@ -1,5 +1,9 @@
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using BookStore.App.Infrastructure;
 using BookStore.App.Infrastructure.Interfaces;
+using BookStore.App.Infrastructure.Mapping.Models;
+using BookStore.App.Infrastructure.Models;
 using BookStore.Domain;
 using BookStore.Persistence.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +13,11 @@ namespace BookStore.Persistence;
 public class OrderRepository : IOrderRepository
 {
     private readonly IBookStoreDbContext _ctx;
-
-    public OrderRepository(IBookStoreDbContext ctx)
+    private readonly IMapper _mapper;
+    public OrderRepository(IBookStoreDbContext ctx, IMapper mapper)
     {
         _ctx = ctx;
+        _mapper = mapper;
     }
 
     public async Task<Order> GetById(int id)
@@ -40,8 +45,21 @@ public class OrderRepository : IOrderRepository
         await _ctx.SaveChangesAsync();
     }
 
-    public Task<IQueryable<Order>> GetOrdersQuery()
+    public IQueryable<OrderVm> GetOrdersQuery(GetOrderQuery query)
     {
-        throw new NotImplementedException();
+        var orders =  _ctx.Orders.AsQueryable();
+
+        if (query.Id.HasValue)
+        {
+            orders = orders.Where(_ => _.Id == query.Id);
+        }
+
+        if (query.Date.HasValue)
+        {
+            orders = orders.Where(_ => _.OrderDataTime == query.Date);
+        }
+
+        var res = orders.ToList();
+        return orders.ProjectTo<OrderVm>(_mapper.ConfigurationProvider);
     }
 }

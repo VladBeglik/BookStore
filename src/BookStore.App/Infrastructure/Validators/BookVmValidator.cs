@@ -10,6 +10,6 @@ public class BookVmValidator : AbstractValidator<BookVm>
         RuleFor(_ => _.Name).NotEmpty();
         RuleFor(_ => _.ReleaseDate).NotEmpty();
         RuleFor(_ => _.Price).NotEmpty();
-        RuleFor(_ => _.Authors).NotEmpty();
+        RuleFor(_ => _.Author).NotEmpty();
     }
 }
