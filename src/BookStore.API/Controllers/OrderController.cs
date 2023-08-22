@@ -40,6 +40,7 @@ public class OrderController : MediatrController
     /// <param name="query"></param>
     /// <returns></returns>
     [HttpPost]
+    [Route("save")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<int> SaveOrder(SaveOrderCommand r)
     {

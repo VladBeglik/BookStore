@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using BookStore.App.Books.Models;
 using BookStore.App.Books.Queries;
 using BookStore.App.Infrastructure;
+using BookStore.App.Infrastructure.Exceptions;
 using BookStore.App.Infrastructure.Interfaces;
 using BookStore.App.Infrastructure.Mapping.Models;
 using BookStore.Domain;
@@ -42,6 +43,12 @@ public class BookRepository : IBookRepository
     public async Task<IList<Book>> GetBooksByIds(int[] ids)
     {
         var books = await _ctx.Books.Where(_ => ids.Contains(_.Id)).ToListAsync();
+
+        if (books.Count == default)
+        {
+            throw new CustomException("таких книг нет");
+        }
+        
         return books;
     }
 
