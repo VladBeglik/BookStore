@@ -41,9 +41,8 @@ namespace BookStore.API.Infrastructure
                     Title = $"{nameof(BookStore)} API",
                     Version = version,
                 });
+                
                 o.ConfigureForNodaTimeWithSystemTextJson();
-                ;
-
             });
 
             return services;

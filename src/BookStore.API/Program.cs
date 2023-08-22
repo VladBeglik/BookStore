@@ -1,6 +1,7 @@
 using System.Reflection;
 using BookStore.API.Infrastructure;
 using BookStore.API.Infrastructure.Filters;
+using BookStore.API.Middlewares;
 using BookStore.App.Infrastructure.Interfaces;
 using BookStore.App.Infrastructure.Mapping;
 using BookStore.Persistence;
@@ -43,12 +44,32 @@ app.Lifetime.ApplicationStarted.Register(app.DatabaseMigrate);
 
 app.UseForwardedHeaders();
 
+if (!string.IsNullOrEmpty(pathBase))
+{
+    app.UsePathBase(pathBase);
+}
+
 
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
+    
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(o =>
+    {
+        o.SwaggerEndpoint($"{pathBase}/swagger/v1/swagger.json", $"{nameof(BookStore)} API V1");
+        //o.OAuthClientId("ro-1");
+
+    }).UseCors(CorsPolicy.DEFAULT);
 }
+
+
+// есть Middleware и Filter
+//app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+
+
+app.UseStaticFiles();
+app.UseRouting();
 
 app.UseHttpsRedirection();
 
