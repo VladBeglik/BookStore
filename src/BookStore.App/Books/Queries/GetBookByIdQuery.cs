@@ -28,7 +28,7 @@ public class GetBookByIdQueryHandler : IRequestHandler<GetBookByIdQuery, BookVm>
         
         if (book == default)
         {
-            throw new CustomException();
+            throw new CustomException(ExMsg.Book.NotFound());
         }
         
         return _mapper.Map<BookVm>(book);

@@ -1,7 +1,7 @@
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using BookStore.App.Infrastructure.Interfaces;
-using BookStore.App.Infrastructure.Mapping.Models;
+using BookStore.App.Orders.Models;
 using BookStore.App.Orders.Queries;
 using BookStore.Domain;
 using BookStore.Persistence.Infrastructure;

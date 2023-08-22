@@ -4,7 +4,6 @@ using BookStore.API.Infrastructure.Filters;
 using BookStore.App.Infrastructure.Interfaces;
 using BookStore.App.Infrastructure.Mapping;
 using BookStore.Persistence;
-using LiveSlotsSpb.API.Infrastructure.Filters;
 using NodaTime;
 
 var builder = WebApplication.CreateBuilder(args);

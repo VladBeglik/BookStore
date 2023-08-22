@@ -1,5 +1,5 @@
-using BookStore.App.Infrastructure.Mapping.Models;
 using BookStore.App.Orders.Commands;
+using BookStore.App.Orders.Models;
 using BookStore.App.Orders.Queries;
 using Microsoft.AspNetCore.Mvc;
 

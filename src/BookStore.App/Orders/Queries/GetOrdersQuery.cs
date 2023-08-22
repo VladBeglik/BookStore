@@ -1,6 +1,6 @@
 ﻿using BookStore.App.Infrastructure.Exceptions;
 using BookStore.App.Infrastructure.Interfaces;
-using BookStore.App.Infrastructure.Mapping.Models;
+using BookStore.App.Orders.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using NodaTime;

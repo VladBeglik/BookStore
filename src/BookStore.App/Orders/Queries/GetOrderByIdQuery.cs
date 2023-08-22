@@ -1,7 +1,7 @@
 using AutoMapper;
 using BookStore.App.Infrastructure.Exceptions;
 using BookStore.App.Infrastructure.Interfaces;
-using BookStore.App.Infrastructure.Mapping.Models;
+using BookStore.App.Orders.Models;
 using MediatR;
 
 namespace BookStore.App.Orders.Queries;

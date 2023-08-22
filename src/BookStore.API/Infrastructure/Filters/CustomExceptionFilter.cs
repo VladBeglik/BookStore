@@ -44,10 +44,6 @@ namespace BookStore.API.Infrastructure.Filters
                             case CustomException _:
                                 context.Result = new JsonResult(new { error = context.Exception.Message });
                                 return;
-                            case NotFoundException _:
-                                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                                context.Result = new JsonResult(new { error = context.Exception.Message });
-                                return;
                         }
                         return;
                     }

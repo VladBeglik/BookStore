@@ -5,7 +5,6 @@ using BookStore.App.Books.Queries;
 using BookStore.App.Infrastructure;
 using BookStore.App.Infrastructure.Exceptions;
 using BookStore.App.Infrastructure.Interfaces;
-using BookStore.App.Infrastructure.Mapping.Models;
 using BookStore.Domain;
 using BookStore.Persistence.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -46,7 +45,7 @@ public class BookRepository : IBookRepository
 
         if (books.Count == default)
         {
-            throw new CustomException("таких книг нет");
+            throw new CustomException(ExMsg.Book.NotFound());
         }
         
         return books;

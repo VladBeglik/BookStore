@@ -1,7 +1,6 @@
 ﻿using BookStore.App.Books.Models;
 using BookStore.App.Infrastructure.Exceptions;
 using BookStore.App.Infrastructure.Interfaces;
-using BookStore.App.Infrastructure.Mapping.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using NodaTime;
@@ -31,7 +30,7 @@ public class GetBooksQueryHandler : IRequestHandler<GetBooksQuery, List<BookVm>>
 
         if (res == default)
         {
-            throw new CustomException();
+            throw new CustomException(ExMsg.Book.NotFound());
         }
         
         return await res.ToListAsync(cancellationToken: cancellationToken);

@@ -1,5 +1,3 @@
-
-using System.Security.Cryptography;
 using BookStore.Domain;
 using BookStore.Persistence;
 using BookStore.Persistence.Infrastructure;
