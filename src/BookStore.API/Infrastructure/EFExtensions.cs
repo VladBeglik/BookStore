@@ -1,4 +1,6 @@
 
+using System.Security.Cryptography;
+using BookStore.Domain;
 using BookStore.Persistence;
 using BookStore.Persistence.Infrastructure;
 using EntityFrameworkCore.SqlServer.NodaTime.Extensions;
@@ -41,9 +43,67 @@ namespace BookStore.API.Infrastructure
             using var scope = host.Services.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<BookStoreDbContext>();
             var clock = scope.ServiceProvider.GetRequiredService<IClock>();
-
             context.Database.Migrate();
+            Seed(context);
+
         }
+
+        private static async void Seed(IBookStoreDbContext ctx)
+        {
+            if (ctx.Books.Any())
+                return;
+
+            await ctx.Books.AddRangeAsync(Books());
+            await ctx.SaveChangesAsync();
+
+        }
+
+        private static IEnumerable<Book> Books()
+        {
+            yield return new Book
+            {
+                Name = "war",
+                Author = "Ivanov",
+                Price = 1,
+                ReleaseDate = new LocalDate(2020, 2, 14)
+            };
+            yield return new Book
+            {
+                Name = "rose",
+                Author = "Petrov",
+                Price = 1,
+                ReleaseDate = new LocalDate(1999, 5, 1)
+            };
+            yield return new Book
+            {
+                Name = "war 2",
+                Author = "Sidirov",
+                Price = 1,
+                ReleaseDate = new LocalDate(2020, 2, 14)
+            };
+            yield return new Book
+            {
+                Name = "Hi",
+                Author = "Nik",
+                Price = 1,
+                ReleaseDate = new LocalDate(2022, 2, 16)
+            };
+            yield return new Book
+            {
+                Name = "war 3",
+                Author = "Ivanov",
+                Price = 1,
+                ReleaseDate = new LocalDate(2020, 2, 14)
+            };
+            yield return new Book
+            {
+                Name = "war 4",
+                Author = "Ivanov",
+                Price = 1,
+                ReleaseDate = new LocalDate(2020, 2, 14)
+            };
+        }
+        
 
         #region private methods
         private static ILoggerFactory GetConsoleLoggerFactory()
