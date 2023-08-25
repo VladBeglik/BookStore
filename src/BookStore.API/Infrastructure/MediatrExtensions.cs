@@ -48,8 +48,7 @@ namespace BookStore.API.Infrastructure
             if (_timer.ElapsedMilliseconds > 400)
             {
                 var name = typeof(TRequest).Name;
-
-                // TODO: Add User Details
+                
                 if (request is IDontLogMediatrPayload)
                 {
                     _logger.LogWarning("Long Running Request: {Name} ({ElapsedMilliseconds} ms)",

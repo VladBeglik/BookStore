@@ -34,7 +34,6 @@ public class GlobalExceptionHandlingMiddleware : IMiddleware
             }
             else if (ex is ICustomExceptionMarker)
             {
-                context.Response.Headers.Add("X-Be-Error", "1");
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
